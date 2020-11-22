@@ -49,14 +49,6 @@ resources = {
 
 money = 0
 
-
-def coins():
-    quarter = 0.25
-    dimes = 0.10
-    nickle = 0.05
-    penny = 0.01
-
-
 # TODO: 1. Print report
 '''
 So, the report, should return all Coffee Machine ingredients stock:
@@ -76,6 +68,8 @@ def report():
             print(f"{k}: {v}g")
     print(f"Money: {money}$")
     print("")
+    sleep(3)
+
 
 # TODO: 2. Check resources Sufficient?
 
@@ -108,10 +102,11 @@ def is_transaction_successful(money_received, drink_cost):
         global money
         money += drink_cost
         change = round(money_received - drink_cost, 2)
-        print(f"Your change: {change}")
+        print(f"Your change: ${change}")
         return True
     else:
         print("Sorry, not enough coins. Your coins will be refunded.")
+        return False
 
 
 # TODO: 5. Make coffee
@@ -119,8 +114,7 @@ def make_coffee(drink_name, order_ingredients):
     """Deduct the required ingredients from the resources"""
     for k, v in order_ingredients.items():
         resources[k] -= v
-    print(resources)
-    print(f"Enjoy your drink! ")
+    print(f"Enjoy your coffee! ")
 
 
 machine_on = True
@@ -150,6 +144,8 @@ while machine_on:
 
         if is_resource_sufficient(drink["ingredients"]):
             payment = process_coins()
+            print("")
+            sleep(1)
             if is_transaction_successful(payment, drink["cost"]):
                 make_coffee(choice, drink["ingredients"])
 
